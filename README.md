@@ -1,8 +1,10 @@
 # First MERN app
+
 This is the first MERN application I created with the help of Traversy's course
 
-<h2>Quick Start</h2>
-<pre>
+## Quick Start
+
+```
   # Install dependencies for server
   npm install
 
@@ -19,21 +21,23 @@ This is the first MERN application I created with the help of Traversy's course
   npm run client
 
   # Server runs on http://localhost:5000 and client on http://localhost:3000
-  
-  <h4>You will need to create a keys_dev.js in the server config folder with</h4>
+```
 
-  module.exports = {
-    mongoURI: 'YOUR_OWN_MONGO_URI',
-    secretOrKey: 'YOUR_OWN_SECRET'
-  };
-</pre>
+You will need to create a keys_dev.js in the server config folder with
 
-<h2>App Info</h2>
-<h3>Author</h3>
-<p>Zohaib Khan <a href="http://zohaib.in">Website</a></p>
+```
+module.exports = {
+	mongoURI: 'YOUR_OWN_MONGO_URI',
+	secretOrKey: 'YOUR_OWN_SECRET'
+};
+```
 
-<h3>Mentor</h3>
-<p><a href="https://github.com/bradtraversy">Brad Traversy</a></p>
+## App Info
+### Author
+Zohaib Khan [Website](http://zohaib.in)
 
-<h3>Version</h3>
-<p>1.0.0</p>
+### Mentor
+[Brad Traversy](https://github.com/bradtraversy)
+
+### Version
+1.0.0
