@@ -17,12 +17,27 @@ app.use(bodyParser.json());
 
 //DB Config
 const db = require("./config/keys").mongoURI;
+console.log(db);
 
 //Connect to Mongoose
-mongoose
-  .connect(db)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(db, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true
+    });
+
+    console.log("MongoDB Connected...");
+  } catch (err) {
+    console.error(err.message);
+    // Exit process with failure
+    process.exit(1);
+  }
+};
+
+connectDB();
 
 // Passport middleware
 app.use(passport.initialize());
