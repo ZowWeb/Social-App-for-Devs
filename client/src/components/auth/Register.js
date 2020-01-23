@@ -45,7 +45,6 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log("submitting newUser");
     this.props.registerUser(newUser, this.props.history);
 
     // axios
