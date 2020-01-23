@@ -17,17 +17,11 @@ app.use(bodyParser.json());
 
 //DB Config
 const db = require("./config/keys").mongoURI;
-console.log(db);
 
 //Connect to Mongoose
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true
-    });
+    await mongoose.connect(db);
 
     console.log("MongoDB Connected...");
   } catch (err) {
