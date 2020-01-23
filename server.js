@@ -30,6 +30,9 @@ app.use(passport.initialize());
 // Passport Config
 require("./config/passport")(passport);
 
+// Serve assets folder
+app.use(express.static("assets"));
+
 // Use Routes
 app.use("/api/users", users);
 app.use("/api/profile", profile);

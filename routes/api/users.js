@@ -4,6 +4,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
+// Image upload
+const multer = require("multer");
+const upload = multer({ dest: "assets/images/" });
+
 // Load Input Validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
@@ -42,7 +46,6 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        avatar: "https://i.pravatar.cc/300",
         password: req.body.password
       });
       bcrypt.genSalt(10, (err, salt) => {
