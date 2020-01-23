@@ -123,4 +123,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));
-console.log("conn to authActions complete");

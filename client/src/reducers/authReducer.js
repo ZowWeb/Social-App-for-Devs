@@ -5,7 +5,6 @@ const initialState = {
   isAuthenticated: false,
   user: {}
 };
-console.log("hi from authReducer");
 
 export default function(state = initialState, action) {
   switch (action.type) {

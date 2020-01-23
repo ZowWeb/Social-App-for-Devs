@@ -19,19 +19,10 @@ app.use(bodyParser.json());
 const db = require("./config/keys").mongoURI;
 
 //Connect to Mongoose
-const connectDB = async () => {
-  try {
-    await mongoose.connect(db);
-
-    console.log("MongoDB Connected...");
-  } catch (err) {
-    console.error(err.message);
-    // Exit process with failure
-    process.exit(1);
-  }
-};
-
-connectDB();
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());

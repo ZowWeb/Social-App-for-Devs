@@ -1,7 +1,6 @@
 import { GET_ERRORS, CLEAR_ERRORS } from "../actions/types";
 
 const initialState = {};
-console.log("hi from errorReducer");
 
 export default function(state = initialState, action) {
   switch (action.type) {

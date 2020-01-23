@@ -144,7 +144,6 @@ export const deleteAccount = () => dispatch => {
 // Get profile by handle
 export const getProfileByHandle = handle => dispatch => {
   dispatch(setProfileLoading());
-  console.log('hi from getProfile action before axios')
   axios
     .get(`/api/profile/handle/${handle}`)
     .then(res =>
