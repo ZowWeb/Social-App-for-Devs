@@ -9,6 +9,8 @@ import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import { createProfile } from "../../actions/profileActions";
 
+import UploadAvatar from "../../components/profile/UploadAvatar";
+
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +29,7 @@ class CreateProfile extends Component {
       linkedin: "",
       youtube: "",
       instagram: "",
+      avatar: "/images/default-user.png",
       errors: {}
     };
 
@@ -144,6 +147,7 @@ class CreateProfile extends Component {
               <p className="lead text-center">
                 Let's get some information to make your profile stand out
               </p>
+              <UploadAvatar avatar={this.state.avatar} />
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup

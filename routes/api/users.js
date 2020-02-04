@@ -6,7 +6,6 @@ const passport = require("passport");
 
 // Image upload
 const multer = require("multer");
-const upload = multer({ dest: "assets/images/" });
 
 // Load Input Validation
 const validateRegisterInput = require("../../validation/register");
@@ -61,6 +60,49 @@ router.post("/register", (req, res) => {
     }
   });
 });
+
+// @route POST api/users/avatar
+// @desc Update avatar
+// @access Public
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "assets/images/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // Reject file
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 1
+  },
+  fileFilter
+});
+
+router.post(
+  "/upload",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("avatar"),
+  (req, res) => {
+    // Find user
+    User.findById(req.user.id).then(user => {
+      user.avatar = "/" + req.file.path;
+      user.save().then(user => res.json(user));
+    });
+  }
+);
 
 // @route GET api/users/login
 // @desc Login User / Returning JWT Token
