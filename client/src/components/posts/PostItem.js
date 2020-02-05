@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
 import { deletePost, addLike, removeLike } from '../../actions/postActions';
 
 class PostItem extends Component {
@@ -42,7 +43,8 @@ class PostItem extends Component {
               />
             </a>
             <br />
-            <p className="text-center">{post.name}</p>
+            <span className="d-block">{post.name}</span>
+            <small className="text-muted"><Moment fromNow>{post.date}</Moment></small>
           </div>
           <div className="col-md-10">
             <p className="lead">{post.text}</p>
