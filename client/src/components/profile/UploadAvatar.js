@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { connect } from "react-redux";
+import { updateCurrentUser } from "../../actions/authActions";
 
 class UploadAvatar extends Component {
   state = {
@@ -33,7 +35,8 @@ class UploadAvatar extends Component {
       );
       axios
         .post("/api/users/upload", fd)
-        .then(this.setState({ uploaded: true }));
+        .then(this.setState({ uploaded: true }))
+        .then(res => this.props.updateCurrentUser(res.data.avatar));
     }
   };
 
@@ -48,7 +51,7 @@ class UploadAvatar extends Component {
               accept=".png, .jpg, .jpeg"
               onChange={this.fileSelected}
             />
-            <label for="imageUpload"></label>
+            <label htmlFor="imageUpload"></label>
           </div>
           <div className="avatar-preview">
             <div
@@ -85,4 +88,4 @@ UploadAvatar.propTypes = {
   avatar: PropTypes.string.isRequired
 };
 
-export default UploadAvatar;
+export default connect(null, { updateCurrentUser })(UploadAvatar);
