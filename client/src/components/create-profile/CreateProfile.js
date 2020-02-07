@@ -29,7 +29,7 @@ class CreateProfile extends Component {
       linkedin: "",
       youtube: "",
       instagram: "",
-      avatar: "/images/default-user.png",
+      avatar: "/assets/images/default-user.png",
       errors: {}
     };
 
