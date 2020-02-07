@@ -41,7 +41,7 @@ img {
 .avatar-upload {
   position: relative;
   max-width: 205px;
-  margin: 50px auto;
+  margin: 20px auto 10px;
 }
 .avatar-upload .avatar-edit {
   position: absolute;

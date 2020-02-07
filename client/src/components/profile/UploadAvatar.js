@@ -66,6 +66,12 @@ class UploadAvatar extends Component {
             ></div>
           </div>
         </div>
+        <div className="mb-2">
+          <small className="text-muted">
+            Only JPG, JPEG, PNG accepted. <br />
+            Max file size: 1MB{" "}
+          </small>
+        </div>
         {this.state.uploaded ? (
           <button
             className="btn btn-success"
