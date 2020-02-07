@@ -37,7 +37,7 @@ router.post(
     const newPost = new Post({
       text: req.body.text,
       name: req.body.name,
-      avatar: req.body.avatar,
+      avatar: req.user.avatar,
       user: req.user.id
     });
     newPost.save().then(post => res.json(post));
@@ -51,6 +51,7 @@ router.get("/", (req, res) => {
   const errors = {};
   Post.find()
     .sort({ date: -1 })
+    .populate("user", ["name", "avatar"])
     .then(posts => {
       if (!posts) {
         errors.noposts = "There are no posts";
@@ -67,6 +68,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const errors = {};
   Post.findById(req.params.id)
+    .populate("user", ["name", "avatar"])
     .then(post => {
       if (!post) {
         errors.nopost = "There are no post";
@@ -191,7 +193,7 @@ router.post(
         const newComment = {
           text: req.body.text,
           name: req.body.name,
-          avatar: req.body.avatar,
+          // avatar: req.body.avatar,
           user: req.user.id
         };
 

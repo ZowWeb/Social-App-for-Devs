@@ -37,7 +37,12 @@ class Navbar extends Component {
               className="rounded-circle"
               src={user.avatar}
               alt={user.name}
-              style={{ width: "25px", marginRight: "5px" }}
+              style={{
+                width: "25px",
+                height: "25px",
+                objectFit: "cover",
+                marginRight: "5px"
+              }}
               title="This image is a dummy"
             />
             Log Out
