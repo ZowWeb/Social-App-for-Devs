@@ -2,7 +2,7 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER, UPDATE_CURRENT_USER } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
@@ -51,10 +51,10 @@ export const setCurrentUser = decoded => {
 // Update user
 export const updateCurrentUser = avatar => dispatch => {
   const decoded = jwt_decode(localStorage.getItem("jwtToken"));
-  const newAvatar = { ...decoded, avatar };
+  const dataHasNewAvatar = { ...decoded, avatar };
   dispatch({
-    type: UPDATE_CURRENT_USER,
-    payload: newAvatar
+    type: SET_CURRENT_USER,
+    payload: dataHasNewAvatar
   });
 };
 
