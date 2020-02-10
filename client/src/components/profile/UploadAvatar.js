@@ -8,8 +8,8 @@ class UploadAvatar extends Component {
   state = {
     selectedFile: "",
     imagePreviewUrl: "",
-    uploaded: false,
-    error: {}
+    loading: false,
+    upload: {}
   };
 
   fileSelected = e => {
@@ -28,6 +28,7 @@ class UploadAvatar extends Component {
   fileUpload = e => {
     e.preventDefault();
     if (this.state.selectedFile) {
+      this.setState({ loading: true });
       const fd = new FormData();
       fd.append(
         "avatar",
@@ -36,24 +37,45 @@ class UploadAvatar extends Component {
       );
       axios.post("/api/users/upload", fd).then(res => {
         if (res.data.status) {
-          this.setState({ uploaded: true, error: "" });
+          this.setState({ upload: res.data, loading: false });
           this.props.updateCurrentUser(res.data.avatar);
         } else {
-          this.setState({ error: res.data });
-          this.props.updateCurrentUser(res.data.avatar);
+          this.setState({ upload: res.data, loading: false });
         }
       });
     }
   };
 
   render() {
-    const { error } = this.state;
-    let alertDiv;
-    if (error.status === false) {
-      alertDiv = (
-        <div className="alert alert-danger" role="alert">
-          {error.message}
-        </div>
+    const { loading, upload } = this.state;
+    let alertStat, uploadStat;
+    if (!upload.status) {
+      upload.message
+        ? (alertStat = (
+            <div className="alert alert-danger" role="alert">
+              {upload.message}
+            </div>
+          ))
+        : (alertStat = null);
+      uploadStat = (
+        <button className="btn btn-primary" onClick={this.fileUpload}>
+          Upload <i className="fas fa-arrow-circle-up"></i>
+        </button>
+      );
+    } else if (upload.message && upload.status) {
+      uploadStat = (
+        <button className="btn btn-success" disabled>
+          Uploaded
+        </button>
+      );
+    }
+
+    if (loading) {
+      uploadStat = (
+        <button className="btn btn-primary" disabled>
+          <span className="spinner-border spinner-border-sm text-white" role="status"></span>{" "}
+          Uploading
+        </button>
       );
     }
     return (
@@ -87,20 +109,8 @@ class UploadAvatar extends Component {
             Max file size: 1MB{" "}
           </small>
         </div>
-        {alertDiv}
-        {this.state.uploaded ? (
-          <button
-            className="btn btn-success"
-            onClick={this.fileUpload}
-            disabled
-          >
-            Uploaded
-          </button>
-        ) : (
-          <button className="btn btn-primary" onClick={this.fileUpload}>
-            Upload <i className="fas fa-arrow-circle-up"></i>
-          </button>
-        )}
+        {alertStat}
+        {uploadStat}
       </div>
     );
   }
