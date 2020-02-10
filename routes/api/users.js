@@ -71,6 +71,10 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
+  },
+  onError: (err, next) => {
+    console.log("Multer error", err);
+    next(err);
   }
 });
 
@@ -89,17 +93,27 @@ const upload = multer({
     fileSize: 1024 * 1024 * 1
   },
   fileFilter
-});
+}).single("avatar");
 
 router.post(
   "/upload",
   passport.authenticate("jwt", { session: false }),
-  upload.single("avatar"),
   (req, res) => {
-    // Find user
-    User.findById(req.user.id).then(user => {
-      user.avatar = "/" + req.file.path;
-      user.save().then(user => res.json(user));
+    upload(req, res, err => {
+      if (err) {
+        return res.json({ status: false, message: err.message });
+      }
+      // Find user
+      User.findById(req.user.id).then(user => {
+        user.avatar = "/" + req.file.path;
+        user.save().then(user =>
+          res.json({
+            status: true,
+            avatar: user.avatar,
+            message: "File uploaded successfully"
+          })
+        );
+      });
     });
   }
 );

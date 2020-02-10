@@ -8,7 +8,8 @@ class UploadAvatar extends Component {
   state = {
     selectedFile: "",
     imagePreviewUrl: "",
-    uploaded: false
+    uploaded: false,
+    error: {}
   };
 
   fileSelected = e => {
@@ -33,14 +34,28 @@ class UploadAvatar extends Component {
         this.state.selectedFile,
         this.state.selectedFile.name
       );
-      axios
-        .post("/api/users/upload", fd)
-        .then(this.setState({ uploaded: true }))
-        .then(res => this.props.updateCurrentUser(res.data.avatar));
+      axios.post("/api/users/upload", fd).then(res => {
+        if (res.data.status) {
+          this.setState({ uploaded: true, error: "" });
+          this.props.updateCurrentUser(res.data.avatar);
+        } else {
+          this.setState({ error: res.data });
+          this.props.updateCurrentUser(res.data.avatar);
+        }
+      });
     }
   };
 
   render() {
+    const { error } = this.state;
+    let alertDiv;
+    if (error.status === false) {
+      alertDiv = (
+        <div className="alert alert-danger" role="alert">
+          {error.message}
+        </div>
+      );
+    }
     return (
       <div className="avatar text-center my-3">
         <div className="avatar-upload">
@@ -72,6 +87,7 @@ class UploadAvatar extends Component {
             Max file size: 1MB{" "}
           </small>
         </div>
+        {alertDiv}
         {this.state.uploaded ? (
           <button
             className="btn btn-success"
