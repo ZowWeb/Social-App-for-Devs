@@ -1,5 +1,6 @@
 /node_modules
 package-lock.json
 /config/keys_dev.js
-/assets/images/!default-user
-/assets/images/!im-blue
+assets/
+assets/images/!default-user.png
+assets/images/!im-blue.jpg
