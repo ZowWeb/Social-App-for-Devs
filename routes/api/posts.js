@@ -49,7 +49,10 @@ router.post(
 // @access Public
 router.get("/", (req, res) => {
   const errors = {};
+  let prev = Number(req.query.skipCount);
   Post.find()
+    .skip(prev)
+    .limit(3)
     .sort({ date: -1 })
     .populate("user", ["name", "avatar"])
     .then(posts => {

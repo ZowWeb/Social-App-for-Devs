@@ -5,6 +5,7 @@ import {
   GET_ERRORS,
   CLEAR_ERRORS,
   GET_POSTS,
+  GET_MORE_POSTS,
   GET_POST,
   POST_LOADING,
   DELETE_POST
@@ -37,6 +38,25 @@ export const getPosts = () => dispatch => {
     .then(res =>
       dispatch({
         type: GET_POSTS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POSTS,
+        payload: null
+      })
+    );
+};
+
+// Get New Posts
+export const getMorePosts = skipCount => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get("/api/posts", { params: { skipCount: skipCount } })
+    .then(res =>
+      dispatch({
+        type: GET_MORE_POSTS,
         payload: res.data
       })
     )
