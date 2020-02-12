@@ -1,4 +1,4 @@
 /node_modules
 package-lock.json
 /config/keys_dev.js
-/assets/images/^(?!.*(default-user.png|im-blue.jpg)).*$
+/assets/images/^(?!(default-user|im-blue)).*$
