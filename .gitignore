@@ -2,5 +2,3 @@
 package-lock.json
 /config/keys_dev.js
 /assets/*
-!/assets/images/default-user.png
-!/assets/images/im-blue.jpg
