@@ -36,7 +36,7 @@ class PostItem extends Component {
         <div className="card-header bg-transparent border-info">
           <img
             className="rounded-circle"
-            src={post.user.avatar}
+            src={post.user.avatar || post.avatar}
             alt=""
             style={{ height: "40px", width: "auto", marginRight: "10px" }}
           />
