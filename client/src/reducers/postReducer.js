@@ -5,11 +5,10 @@ import {
   GET_POST,
   DELETE_POST,
   POST_LOADING
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   posts: [],
-  newposts: [],
   post: {},
   loading: false
 };
@@ -27,10 +26,10 @@ export default function(state = initialState, action) {
         posts: action.payload,
         loading: false
       };
-      case GET_MORE_POSTS:
+    case GET_MORE_POSTS:
       return {
         ...state,
-        newposts: action.payload,
+        posts: state.posts.concat(action.payload),
         loading: false
       };
     case GET_POST:

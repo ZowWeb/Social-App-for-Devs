@@ -8,6 +8,7 @@ import { getPosts, getMorePosts } from "../../actions/postActions";
 
 class Posts extends Component {
   state = {
+    already: 0,
     newPosts: []
   };
 
@@ -17,26 +18,26 @@ class Posts extends Component {
 
   getMorePostsBtn(e) {
     e.preventDefault();
-    let nextThree = 3;
+    let nextThree = this.state.already + 3;
+    console.log("already before axios:" + this.state.already);
+    this.setState({ already: nextThree });
 
     this.props.getMorePosts(nextThree);
   }
 
   render() {
-    const { posts, loading, newposts } = this.props.post;
+    const { posts, loading } = this.props.post;
     // const { newPosts } = this.state;
-    let postContent, newPostContent;
+    let postContent, spinner;
 
-    if (posts === null || loading) {
+    if (posts === null && loading) {
       postContent = <Spinner />;
     } else {
       postContent = <PostFeed posts={posts} />;
     }
 
-    if (newposts === null || loading) {
-      newPostContent = <Spinner />;
-    } else {
-      newPostContent = <PostFeed posts={newposts} />;
+    if (loading) {
+      spinner = <Spinner />;
     }
 
     return (
@@ -46,7 +47,7 @@ class Posts extends Component {
             <div className="col-md-12">
               <PostForm />
               {postContent}
-              {newPostContent}
+              {spinner}
               <button
                 className="btn btn-secondary btn-block mt-4"
                 onClick={this.getMorePostsBtn.bind(this)}
